@@ -1,3 +1,8 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html>
@@ -27,7 +32,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> الرئيسية <span class="sr-only">(current)</span></a></li>
         <li><a href="aboutus.html"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> حول</a></li>
-        <li><a href="menu.html"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> قائمة الرحلات</a></li>
+        <li><a href="menu.jsp"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> قائمة الرحلات</a></li>
         <li><a href="contact.html"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> الاتصال بنا</a></li>
         
       </ul>
@@ -47,7 +52,7 @@
                   
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="login.jsp">
                         <div class="row">
                             <div class="form-group col-sm-6">
                                     <label  for="username">اسم المستخدم</label>
@@ -70,16 +75,155 @@
         <header class="jumbotron">
             <div class="container">
                 <div class="row ">
-                    
-                    <div class="col-xs-12 col-sm-offset-3 col-sm-6 ">
+                    <div class="col-xs-12 col-md-3" style="padding: 50px 0px;">
+                        <a role="button" id="reserve" class="btn btn-success btn-lg"> حجز</a>
+                        <a role="button" id="confirm" class="btn btn-warning btn-lg"> تثبيت الحجز</a>
+                        <a role="button" href="menu.jsp" class="btn btn-danger btn-lg"> بحث </a>
+
+                    </div>
+                    <div class="col-xs-12  col-sm-offset-1 col-sm-6 ">
                         <h1 >رحلات  <small>للسياحة و السفر</small> </h1>
                     </div>
-                    <div class="col-xs-12 col-sm-3 ">
+                    <div class="col-xs-12 col-sm-2">
                         <img src="images/logo.png" alt="رحلات" height="150" width="200" />
                     </div>
                 </div>
             </div>
         </header>
+                        <div id="reserveModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">الحجز</h4>
+                  
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="reserve.jsp">
+                        <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="الاسم الأول">
+                        </div>
+                         <label for="firstname" class="col-md-2 ">الاسم الأول</label>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="الاسم الأخير">
+                        </div>
+                        <label for="lastname" class="col-md-2 ">الاسم الأخير</label>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني">
+                        </div>
+                        <label for="lastname" class="col-md-2 ">الرقم الوطني</label>
+
+                    </div>    
+                    <div class="form-group row">
+                            
+                        <div class="col-md-10">
+                                <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="رقم الهاتف">
+                            </div>
+                             <label for="telnum" class="col-xs-12 col-md-2 ">رقم الهاتف</label>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="ايميل">
+                            </div>
+                            <label for="email" class="col-md-2">ايميل</label>
+
+                        </div>
+                         <div class="form-group row">
+                                <div class="col-md-10">
+                                    <%
+                                     try{
+                                     Class.forName("com.mysql.jdbc.Driver");
+                                     String url="jdbc:mysql://localhost:3306/traveldb";
+                                     Connection con=DriverManager.getConnection(url, "root", "");
+                                     Statement stm= con.createStatement();
+                                     ResultSet r=stm.executeQuery("select id from journey");
+                                     %>
+                                    <select class="form-control" id="travelid" name="travelid">
+                                         <% while(r.next()){
+                                            %>
+                                            <option><%=r.getString(1) %></option>
+                                            <%
+                                            }
+                                             r.close();
+                                             }catch (Exception ex){
+                                             out.println(ex.getMessage());
+                                             }//catch
+                                            %>
+                                    </select>
+                                        </div>                            
+                                        <label class="col-md-2" >رقم الرحلة</label>
+                                    </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-default btn-sm " data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-sm">احجز</button>        
+                        </div>
+                    </form>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          
+       <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">تثبيت الحجز</h4>
+                  
+                </div>
+                <div class="modal-body">
+                    <form method="post" >
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني">
+                            </div>
+                            <label for="lastname" class="col-md-2 ">الرقم الوطني</label>
+
+                        </div> 
+                        <div class="form-group row">
+                        <div class="col-md-10">
+                            <%
+                             try{
+                             Class.forName("com.mysql.jdbc.Driver");
+                             String url="jdbc:mysql://localhost:3306/traveldb";
+                             Connection con=DriverManager.getConnection(url, "root", "");
+                             Statement stm= con.createStatement();
+                             ResultSet r=stm.executeQuery("select id from journey");
+                             %>
+                            <select class="form-control">
+                                 <% while(r.next()){
+                                    %>
+                                    <option><%=r.getString(1) %></option>
+                                    <%
+                                    }
+                                     r.close();
+                                     }catch (Exception ex){
+                                     out.println(ex.getMessage());
+                                     }//catch
+                                    %>
+                            </select>
+                                </div>                            
+                                <label class="col-md-2" >رقم الرحلة</label>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-default btn-sm " data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-sm">تثبيت</button>        
+                        </div>
+                    </form>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          
+  
         <div class="container">
 
             <div class="row row-content">
@@ -182,8 +326,8 @@
                     <ul class="list-unstyled">
                         <li><a href="#">Home</a></li>
                         <li><a href="./aboutus.html">About</a></li>
-                        <li><a href="./menu.html">Menu</a></li>
-                        <li><a href="./contactus.html">Contact</a></li>
+                        <li><a href="./menu.jsp">Menu</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-7 col-sm-5">
@@ -216,9 +360,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="javascript/bootstrap.min.js"></script>
         <script>
-            $("#loginbutton").click(function(){
+            
+               $("#loginbutton").click(function(){
             $('#loginModal').modal('toggle');
+            }); 
+            $("#reserve").click(function(){
+            $('#reserveModal').modal('toggle');
             });
+            $("#confirm").click(function(){
+            $('#confirmModal').modal('toggle');
+            });    
+            
         </script>
     </body>
 </html>
