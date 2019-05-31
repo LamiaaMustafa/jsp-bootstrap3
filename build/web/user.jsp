@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>reserve</title>
+        <title>user</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -26,12 +26,20 @@
     <body>
 <%
         String s=(String)session.getAttribute("userid");
+        String filename="index";
         if(s==null){
         response.sendRedirect("index.jsp");
+        }else if(s=="admin"){
+        filename=s;
         }
            %>
-        <div class="container">   
+        <div class="container">
+            <div class="row">
+            <div class="col-xs-1" style="margin-top:20px;">
+                <a href="<%out.println(filename);%>.jsp"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span> رجوع</a>
+            </div>
             <h1 class="page-header">مرحبا <%=s %> </h1>
+            </div>
             <h3>يمكنك من هنا إضافة أو حذف أو تعديل الرحلات </h3>
             <form method="post">
                 <div class="row">
@@ -270,7 +278,7 @@
                    %>
                    <div class="table-responsive">
                     <table class="table table-striped">
-                        <tr >
+                        <tr class="info">
                           <th>رقم </th>
                           <th>الوجهة</th>
                           <th>التاريخ</th>

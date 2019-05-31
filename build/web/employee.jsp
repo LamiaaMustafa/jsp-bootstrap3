@@ -1,6 +1,6 @@
 <%-- 
-    Document   : user
-    Created on : May 31, 2019, 6:40:02 AM
+    Document   : employee
+    Created on : May 31, 2019, 10:06:59 PM
     Author     : Syla-Group
 --%>
 
@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>user</title>
+        <title>employee</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -26,28 +26,24 @@
     <body>
 <%
         String s=(String)session.getAttribute("userid");
-        String filename="index";
         if(s==null){
         response.sendRedirect("index.jsp");
-        }else if(s=="admin"){
-        filename=s;
         }
            %>
         <div class="container">
             <div class="row">
             <div class="col-xs-1" style="margin-top:20px;">
-                <a href="<%out.println(filename);%>.jsp"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span> رجوع</a>
+                <a href="admin.jsp"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span> رجوع</a>
             </div>
             <h1 class="page-header">مرحبا <%=s %> </h1>
             </div>
-            <h3>يمكنك من هنا إضافة أو حذف أو تعديل الرحلات </h3>
+            <h3>يمكنك من هنا إضافة أو حذف أو تعديل بيانات الموظفين </h3>
             <form method="post">
                 <div class="row">
                     <div class="col-xs-12 col-md-5">
-                        <a role="button" href="travellersnames.jsp" class="btn btn-info btn-lg"> أسماء الركاب</a>
-                        <a role="button" id="addbutton" class="btn btn-success btn-lg"> اضافة رحلة</a>
-                        <a role="button" id="updatebutton" class="btn btn-warning btn-lg"> تعديل رحلة</a>
-                        <a role="button" id="deletebutton" class="btn btn-danger btn-lg"> حذف رحلة</a>
+                        <a role="button" id="addbutton" class="btn btn-success btn-lg"> اضافة موظف</a>
+                        <a role="button" id="updatebutton" class="btn btn-warning btn-lg"> تعديل موظف</a>
+                        <a role="button" id="deletebutton" class="btn btn-danger btn-lg"> حذف موظف</a>
 
                     </div>
 
@@ -66,51 +62,53 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">اضافة رحلة</h4>
+                    <h4 class="modal-title">اضافة موظف</h4>
                   
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="addjourney.jsp">
+                    <form method="post" action="addemployee.jsp">
                         <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="dest" name="dest" placeholder="الوجهة" required>
+                            <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني" required>
                         </div>
-                         <label for="dest" class="col-md-2 ">الوجهة</label>
+                        <label for="lastname" class="col-md-2 ">الرقم الوطني</label>
+
+                    </div>  
+                        <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="الاسم الأول" required>
+                        </div>
+                         <label for="firstname" class="col-md-2 ">الاسم الأول</label>
 
                     </div>
                     <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="date" class="form-control" id="date" name="date" placeholder="التاريخ" required>
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="الاسم الأخير" required>
                         </div>
-                        <label for="date" class="col-md-2 ">التاريخ</label>
+                        <label for="lastname" class="col-md-2 ">الاسم الأخير</label>
 
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-10">
-                            <input type="time" class="form-control" id="time" name="time" placeholder="الوقت" required>
-                        </div>
-                        <label for="time" class="col-md-2 ">الوقت</label>
-
-                    </div>    
+                      
                     <div class="form-group row">
                             
                         <div class="col-md-10">
-                                <input type="text" class="form-control" id="num" name="num" placeholder="عدد المقاعد" required>
+                                <input type="text" class="form-control" id="job" name="job" placeholder="طبيعة العمل" required>
                             </div>
-                             <label for="num" class="col-xs-12 col-md-2 ">عدد المقاعد</label>
+                             <label for="job" class="col-xs-12 col-md-2 ">طبيعة العمل</label>
 
                         </div>
                         <div class="form-group row">
-                                    <div class="col-md-10">
-                                        <textarea class="form-control" id="descripe" name="descripe" rows="4" required></textarea>
-                                    </div>
-                                    <label for="descripe" class="col-md-2 ">الوصف</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="اسم المستخدم">
                             </div>
+                            <label for="username" class="col-md-2">اسم المستخدم</label>
+
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="price" name="price" placeholder="السعر" required>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور">
                             </div>
-                            <label for="price" class="col-md-2">السعر</label>
+                            <label for="password" class="col-md-2">كلمة المرور</label>
 
                         </div>
                          
@@ -128,11 +126,11 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">تعديل رحلة</h4>
+                    <h4 class="modal-title">تعديل موظف</h4>
                   
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="updatejourney.jsp">
+                    <form method="post" action="updateemployee.jsp">
                         <div class="form-group row">
                         <div class="col-md-10">
                             <%
@@ -141,9 +139,9 @@
                              String url="jdbc:mysql://localhost:3306/traveldb";
                              Connection con=DriverManager.getConnection(url, "root", "");
                              Statement stm= con.createStatement();
-                             ResultSet r=stm.executeQuery("select id from journey");
+                             ResultSet r=stm.executeQuery("select id from employees");
                              %>
-                            <select class="form-control" id="travelid" name="travelid">
+                            <select class="form-control" id="empid" name="empid">
                                  <% while(r.next()){
                                     %>
                                     <option><%=r.getString(1) %></option>
@@ -156,51 +154,46 @@
                                     %>
                             </select>
                                 </div>                            
-                                <label class="col-md-2" >رقم الرحلة</label>
+                                <label class="col-md-2" >رقم الموظف</label>
                         </div>
-                        <div class="form-group row">
+<div class="form-group row">
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="dest" name="dest" placeholder="الوجهة" required>
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="الاسم الأول" required>
                         </div>
-                         <label for="dest" class="col-md-2 ">الوجهة</label>
+                         <label for="firstname" class="col-md-2 ">الاسم الأول</label>
 
                     </div>
                     <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="date" class="form-control" id="date" name="date" placeholder="التاريخ" required>
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="الاسم الأخير" required>
                         </div>
-                        <label for="date" class="col-md-2 ">التاريخ</label>
+                        <label for="lastname" class="col-md-2 ">الاسم الأخير</label>
 
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-10">
-                            <input type="time" class="form-control" id="time" name="time" placeholder="الوقت" required>
-                        </div>
-                        <label for="time" class="col-md-2 ">الوقت</label>
-
-                    </div>    
+                      
                     <div class="form-group row">
                             
                         <div class="col-md-10">
-                                <input type="text" class="form-control" id="num" name="num" placeholder="عدد المقاعد" required>
+                                <input type="text" class="form-control" id="job" name="job" placeholder="طبيعة العمل" required>
                             </div>
-                             <label for="num" class="col-xs-12 col-md-2 ">عدد المقاعد</label>
+                             <label for="job" class="col-xs-12 col-md-2 ">طبيعة العمل</label>
 
                         </div>
-                        <div class="form-group row">
-                                    <div class="col-md-10">
-                                        <textarea class="form-control" id="descripe" name="descripe" rows="4" required></textarea>
-                                    </div>
-                                    <label for="descripe" class="col-md-2 ">الوصف</label>
-                            </div>
                         <div class="form-group row">
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="price" name="price" placeholder="السعر" required>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="اسم المستخدم">
                             </div>
-                            <label for="price" class="col-md-2">السعر</label>
+                            <label for="username" class="col-md-2">اسم المستخدم</label>
 
                         </div>
-                         
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور">
+                            </div>
+                            <label for="password" class="col-md-2">كلمة المرور</label>
+
+                        </div>
+                                              
                         <div class="row">
                             <button type="button" class="btn btn-default btn-sm " data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary btn-sm">تعديل</button>        
@@ -215,11 +208,11 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">حذف رحلة</h4>
+                    <h4 class="modal-title">حذف موظف</h4>
                   
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="deletejourney.jsp">
+                    <form method="post" action="deleteemployee.jsp">
                         <div class="form-group row">
                         <div class="col-md-10">
                             <%
@@ -228,9 +221,9 @@
                              String url="jdbc:mysql://localhost:3306/traveldb";
                              Connection con=DriverManager.getConnection(url, "root", "");
                              Statement stm= con.createStatement();
-                             ResultSet r=stm.executeQuery("select id from journey");
+                             ResultSet r=stm.executeQuery("select id from employees");
                              %>
-                            <select class="form-control" id="travelid" name="travelid">
+                            <select class="form-control" id="empid" name="empid">
                                  <% while(r.next()){
                                     %>
                                     <option><%=r.getString(1) %></option>
@@ -243,7 +236,7 @@
                                     %>
                             </select>
                                 </div>                            
-                                <label class="col-md-2" >رقم الرحلة</label>
+                                <label class="col-md-2" >رقم الموظف</label>
                         </div>
                          
                         <div class="row">
@@ -264,9 +257,9 @@
                     String search=request.getParameter("searchinput");
                     String sql="";
                     if(search!=null){
-                         sql="select * from journey where destination like '%"+search+"%'";
+                         sql="select * from employees where firstName like '%"+search+"%'";
                         }else{
-                        sql="select * from journey ";
+                        sql="select * from employees ";
                     }
 
                     try{
@@ -279,13 +272,12 @@
                    <div class="table-responsive">
                     <table class="table table-striped">
                         <tr class="info">
-                          <th>رقم </th>
-                          <th>الوجهة</th>
-                          <th>التاريخ</th>
-                          <th>الوقت</th>
-                          <th>عدد المقاعد</th>
-                          <th>الوصف</th>                                    
-                          <th>السعر</th>                                    
+                          <th>الرقم الوطني </th>
+                          <th>الاسم الاول</th>
+                          <th>الاسم الاخير</th>
+                          <th>طبيعة العمل</th>
+                          <th>اسم المستخدم</th>
+                          <th>كلمة المرور</th>                                    
                      </tr>
                   <%
                    while(r.next()){
@@ -297,7 +289,6 @@
                       <td><%=r.getString(4) %></td>  
                       <td><%=r.getString(5) %></td>  
                       <td><%=r.getString(6) %></td> 
-                      <td><%=r.getString(7) %></td> 
                   </tr>
                   <%
                   }//while
