@@ -34,6 +34,10 @@
                     String url="jdbc:mysql://localhost:3306/traveldb";
                     Connection con=DriverManager.getConnection(url, "root", "");
                     Statement stm= con.createStatement();
+                     ResultSet rs=stm.executeQuery("SELECT freeseats.numofseats FROM freeseats WHERE freeseats.id='"+travelid+"'");
+                     if(rs.next()){
+                        int num=rs.getInt(1);
+                        if(num!=0){
                     ResultSet r=stm.executeQuery("select idCard from traveller where idCard like '"+idcard+"'");
                     if(r.next()){
                         int n=stm.executeUpdate("INSERT INTO `journey-traveller` (`journeyId`, `travellerId`, `confirm`) VALUES ('"+travelid+"', '"+idcard+"', '0')");
@@ -44,7 +48,6 @@
                            s="فشل الحجز";
                            col="danger";
                         }
-                 
                     }else{
                         int m=stm.executeUpdate("insert into traveller values('"+idcard+"','"+firstname+"','"+lastname+"','"+telnum+"','"+email+"')");
                         if(m==1){
@@ -63,6 +66,13 @@
                     }
 
                     r.close();
+                     }
+                        else{
+                             s= "فشل الحجز ! لا يوجد أماكن شاغرة في الرحلة المطلوبة";
+                          col="danger";
+                        }
+                     }   
+                     rs.close();
                    }catch (Exception ex){
                    //out.println(ex.getMessage());
                     s="فشل الحجز";

@@ -28,7 +28,6 @@ background-color: floralwhite;
 
 .carousel {
     background:#454cba;
-        width:  600px;
 
 }
 .item {
@@ -38,11 +37,15 @@ background-color: floralwhite;
   .item img {
     position: absolute;
     top: 0;   
+     left: 0;
     min-height: 300px;
 }  
 .item .carousel-caption {
    font-size: 40px;    
+   text-align: right;
+   padding: 70px 0;
   }
+  
   .modal-header{
     background-color: #454cba;
     color: floralwhite;

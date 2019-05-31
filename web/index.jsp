@@ -56,11 +56,11 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                     <label  for="username">اسم المستخدم</label>
-                                    <input type="text" class="form-control  " id="username" placeholder="اسم المستخدم">
+                                    <input type="text" class="form-control  " id="username" name="username" placeholder="اسم المستخدم" required>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label  for="Password">كلمة المرور</label>
-                                <input type="password" class="form-control  " id="Password" placeholder="كلمة المرور">
+                                <input type="password" class="form-control  " id="Password" name="Password" placeholder="كلمة المرور" required>
                             </div>
                         </div>
                         <div class="row">
@@ -102,21 +102,21 @@
                     <form method="post" action="reserve.jsp">
                         <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="الاسم الأول">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="الاسم الأول" required>
                         </div>
                          <label for="firstname" class="col-md-2 ">الاسم الأول</label>
 
                     </div>
                     <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="الاسم الأخير">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="الاسم الأخير" required>
                         </div>
                         <label for="lastname" class="col-md-2 ">الاسم الأخير</label>
 
                     </div>
                     <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني">
+                            <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني" required>
                         </div>
                         <label for="lastname" class="col-md-2 ">الرقم الوطني</label>
 
@@ -124,7 +124,7 @@
                     <div class="form-group row">
                             
                         <div class="col-md-10">
-                                <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="رقم الهاتف">
+                                <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="رقم الهاتف" required>
                             </div>
                              <label for="telnum" class="col-xs-12 col-md-2 ">رقم الهاتف</label>
 
@@ -180,10 +180,10 @@
                   
                 </div>
                 <div class="modal-body">
-                    <form method="post" >
+                    <form method="post" action="confirm.jsp">
                         <div class="form-group row">
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني">
+                                <input type="text" class="form-control" id="idcard" name="idcard" placeholder="الرقم الوطني" required>
                             </div>
                             <label for="lastname" class="col-md-2 ">الرقم الوطني</label>
 
@@ -198,7 +198,7 @@
                              Statement stm= con.createStatement();
                              ResultSet r=stm.executeQuery("select id from journey");
                              %>
-                            <select class="form-control">
+                            <select class="form-control" id="travelid" name="travelid">
                                  <% while(r.next()){
                                     %>
                                     <option><%=r.getString(1) %></option>
@@ -227,7 +227,7 @@
         <div class="container">
 
             <div class="row row-content">
-                <div class="col-xs-12 col-sm-offset-3 col-sm-6 ">
+                <div class="col-xs-12 ">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                    
                     <!-- Wrapper for slides -->
