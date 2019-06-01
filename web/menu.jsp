@@ -125,9 +125,9 @@
                     String search=request.getParameter("searchinput");
                     String sql="";
                     if(search!=null){
-                         sql="select * from journey where destination like '%"+search+"%'";
+                         sql="select * from journey WHERE journey.date >= (SELECT CURDATE()) and destination like '%"+search+"%'";
                         }else{
-                        sql="select * from journey ";
+                        sql="select * from journey WHERE journey.date >= (SELECT CURDATE())";
                     }
 
                     try{
@@ -227,7 +227,7 @@
                                      String url="jdbc:mysql://localhost:3306/traveldb";
                                      Connection con=DriverManager.getConnection(url, "root", "");
                                      Statement stm= con.createStatement();
-                                     ResultSet r=stm.executeQuery("select id from journey");
+                                     ResultSet r=stm.executeQuery("select id from journey WHERE journey.date > (SELECT CURDATE())");
                                      %>
                                     <select class="form-control" id="travelid" name="travelid">
                                          <% while(r.next()){
@@ -279,7 +279,7 @@
                              String url="jdbc:mysql://localhost:3306/traveldb";
                              Connection con=DriverManager.getConnection(url, "root", "");
                              Statement stm= con.createStatement();
-                             ResultSet r=stm.executeQuery("select id from journey");
+                             ResultSet r=stm.executeQuery("select id from journey WHERE journey.date >(SELECT CURDATE()) OR (journey.date =(SELECT CURDATE()) AND journey.time > ADDTIME((SELECT CURTIME()),'01:00:00') )");
                              %>
                             <select class="form-control" id="travelid" name="travelid">
                                  <% while(r.next()){
